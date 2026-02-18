@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Аудит 5С — Чек-лист</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+            background-color: #f0f8f0;
+            color: #1a1a1a;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        h1 {
+            color: #228B22;
+            text-align: center;
+            margin: 0 0 8px;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #2e7d32;
+            margin: 0 0 20px;
+            font-size: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(34, 139, 34, 0.15);
+            border: 1px solid #c8e6c9;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #228B22;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e8f5e9;
+        }
+
+        .card-title .icon {
+            font-size: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #a5d6a7;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #228B22;
+            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .question {
+            background: #f9fdf9;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #e0f2e0;
+        }
+
+        .question-text {
+            font-size: 14px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .question-number {
+            color: #228B22;
+            font-weight: bold;
+        }
+
+        .na-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 10px 12px;
+            background: #fff8e1;
+            border-radius: 6px;
+            border: 1px solid #ffcc80;
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .na-container input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            accent-color: #ff9800;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .na-container span {
+            color: #e65100;
+            font-size: 14px;
+        }
+
+        .question.disabled .question-content {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .question-content {
+            transition: opacity 0.2s;
+        }
+
+        .rating-container {
+            margin-top: 8px;
+        }
+
+        .rating-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .rating-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .rating-btn {
+            min-width: 44px;
+            height: 44px;
+            border: 2px solid #c8e6c9;
+            background: white;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2e7d32;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-appearance: none;
+            touch-action: manipulation;
+        }
+
+        .rating-btn:hover {
+            border-color: #81c784;
+            background: #f1f8f1;
+        }
+
+        .rating-btn.active {
+            background: #228B22;
+            border-color: #228B22;
+            color: white;
+        }
+
+        .rating-btn:active {
+            transform: scale(0.95);
+        }
+
+        .current-rating {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #228B22;
+            font-weight: 600;
+        }
+
+        .block-extras {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed #c8e6c9;
+        }
+
+        .photo-upload {
+            margin-bottom: 12px;
+        }
+
+        .photo-upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #e8f5e9;
+            border: 2px dashed #81c784;
+            border-radius: 8px;
+            color: #2e7d32;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .photo-upload-btn:hover,
+        .photo-upload-btn:active {
+            background: #c8e6c9;
+            border-color: #228B22;
+        }
+
+        .photo-upload input[type="file"] {
+            display: none;
+        }
+
+        .photo-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .photo-item {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #c8e6c9;
+        }
+
+        .remove-photo {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 28px;
+            height: 28px;
+            background: #f44336;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            -webkit-appearance: none;
+            touch-action: manipulation;
+        }
+
+        .block-score {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 10px;
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+
+        .block-score-label {
+            font-size: 14px;
+            color: #2e7d32;
+        }
+
+        .block-score-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #228B22;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .results-table tr {
+            border-bottom: 1px solid #e0f2e0;
+        }
+
+        .results-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .results-table td {
+            padding: 12px 8px;
+        }
+
+        .results-table td:first-child {
+            color: #1a1a1a;
+        }
+
+        .results-table td:last-child {
+            text-align: right;
+            font-weight: bold;
+            color: #228B22;
+            font-size: 18px;
+        }
+
+        .results-table .total-row {
+            background: #e8f5e9;
+            border-radius: 8px;
+        }
+
+        .results-table .total-row td {
+            padding: 14px 8px;
+        }
+
+        .results-table .total-row td:first-child {
+            font-weight: bold;
+            color: #228B22;
+        }
+
+        .results-table .total-row td:last-child {
+            font-size: 22px;
+        }
+
+        .results-table .index-row {
+            background: #c8e6c9;
+        }
+
+        .results-table .index-row td {
+            padding: 14px 8px;
+            font-weight: bold;
+        }
+
+        .results-table .index-row td:first-child {
+            color: #1b5e20;
+        }
+
+        .results-table .index-row td:last-child {
+            font-size: 22px;
+            color: #1b5e20;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        button {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .btn-primary {
+            background: #228B22;
+            color: white;
+            -webkit-appearance: none;
+            touch-action: manipulation;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:active {
+            background: #1b6e1b;
+        }
+
+        .btn-secondary {
+            background: #e8f5e9;
+            color: #228B22;
+            border: 2px solid #228B22;
+            -webkit-appearance: none;
+            touch-action: manipulation;
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:active {
+            background: #c8e6c9;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            padding: 16px;
+            border-bottom: 1px solid #e0f2e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #228B22;
+            font-size: 18px;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-appearance: none;
+            touch-action: manipulation;
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-footer {
+            padding: 16px;
+            border-top: 1px solid #e0f2e0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .preview-section {
+            margin-bottom: 20px;
+        }
+
+        .preview-section h3 {
+            color: #228B22;
+            font-size: 16px;
+            margin: 0 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e8f5e9;
+        }
+
+        .preview-row {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 10px;
+        }
+
+        .preview-row:last-child {
+            border-bottom: none;
+        }
+
+        .preview-label {
+            flex: 1;
+            color: #666;
+        }
+
+        .preview-value {
+            flex-shrink: 0;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .preview-photos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .preview-photos img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .card {
+                padding: 14px;
+            }
+
+            .card-title {
+                font-size: 16px;
+            }
+
+            .rating-btn {
+                min-width: 38px;
+                height: 40px;
+                font-size: 13px;
+            }
+
+            button {
+                min-width: 100%;
+            }
+
+            .modal-footer button {
+                min-width: calc(50% - 5px);
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.min.js"></script>
+</head>
+<body>
+    <h1>📋 АУДИТ 5C</h1>
+    <p class="subtitle">Чек-лист для оценки состояния рабочих зон</p>
+
+    <form id="auditForm">
+        <!-- Общая информация -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">📌</span>
+                Общая информация
+            </div>
+
+            <label for="audit_date">📅 Дата аудита</label>
+            <input type="date" id="audit_date" name="audit_date" required />
+
+            <label for="area">🏭 Участок / Группа</label>
+            <input type="text" id="area" name="area" placeholder="Введите название участка" required />
+
+            <label for="auditor">👤 Координатор</label>
+            <input type="text" id="auditor" name="auditor" placeholder="ФИО Координатор" required />
+
+            <label for="leader">👤 Лидер</label>
+            <input type="text" id="leader" name="leader" placeholder="ФИО Координатора" required />
+        </div>
+
+        <!-- Блок 1: Сортировка -->
+        <div class="card" data-block="1">
+            <div class="card-title">
+                <span class="icon">📦</span>
+                1. Сортировка
+            </div>
+
+            <div class="question" data-question="q1_1">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">1.1</span> На стенде/в рабочей папке/демосистеме и в рабочей зоне присутствуют все необходимые и актуальные документы по 5С
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q1_1" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q1_1" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q1_1" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q1_1" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q1_1" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q1_1" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q1_1" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q1_1" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q1_1" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q1_1">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q1_2">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">1.2</span> В рабочей зоне нет ненужных предметов. Проходы не загромождены. Доступ к СИЗ и первичным средствам пожаротушения не затруднен.
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q1_2" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q1_2" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q1_2" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q1_2" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q1_2" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q1_2" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q1_2" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q1_2" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q1_2" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q1_2">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-extras">
+                <div class="photo-upload">
+                    <label class="photo-upload-btn">
+                        <span>📸</span> Добавить фото замечаний
+                        <input type="file" id="photos_block1_input" accept="image/*" multiple />
+                    </label>
+                    <div class="photo-preview" id="photos_block1"></div>
+                </div>
+
+                <label for="comment_block1">💬 Комментарий</label>
+                <textarea id="comment_block1" placeholder="Опишите выявленные замечания..."></textarea>
+            </div>
+
+            <div class="block-score">
+                <span class="block-score-label">Средний балл:</span>
+                <span class="block-score-value" id="score_block1">3.00</span>
+            </div>
+        </div>
+
+        <!-- Блок 2: Систематизация -->
+        <div class="card" data-block="2">
+            <div class="card-title">
+                <span class="icon">📐</span>
+                2. Систематизация
+            </div>
+
+            <div class="question" data-question="q2_1">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">2.1</span> Нужные предметы (оборудование, инструменты, материалы, документы и пр.) размещены рационально и безопасно
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q2_1" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q2_1" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q2_1" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q2_1" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q2_1" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q2_1" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q2_1" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q2_1" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q2_1" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q2_1">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q2_2">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">2.2</span> Места хранения предметов промаркированы и используются по назначению
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q2_2" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q2_2" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q2_2" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q2_2" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q2_2" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q2_2" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q2_2" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q2_2" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q2_2" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q2_2">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-extras">
+                <div class="photo-upload">
+                    <label class="photo-upload-btn">
+                        <span>📸</span> Добавить фото замечаний
+                        <input type="file" id="photos_block2_input" accept="image/*" multiple />
+                    </label>
+                    <div class="photo-preview" id="photos_block2"></div>
+                </div>
+
+                <label for="comment_block2">💬 Комментарий</label>
+                <textarea id="comment_block2" placeholder="Опишите выявленные замечания..."></textarea>
+            </div>
+
+            <div class="block-score">
+                <span class="block-score-label">Средний балл:</span>
+                <span class="block-score-value" id="score_block2">3.00</span>
+            </div>
+        </div>
+
+        <!-- Блок 3: Содержание в чистоте -->
+        <div class="card" data-block="3">
+            <div class="card-title">
+                <span class="icon">🧹</span>
+                3. Содержание в чистоте
+            </div>
+
+            <div class="question" data-question="q3_1">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">3.1</span> Выявлены и устранены (либо приняты меры) по труднодоступным для уборки местам
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q3_1" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q3_1" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_1" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q3_1" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q3_1" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q3_1" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_1" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q3_1" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_1" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q3_1">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q3_2">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">3.2</span> Выявлены и устранены (либо приняты меры) по хроническим источникам загрязнений и неисправностям
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q3_2" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q3_2" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_2" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q3_2" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q3_2" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q3_2" data-value="3.5">3.5</button>
+                                                        <button type="button" class="rating-btn" data-q="q3_2" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_2" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q3_2" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_2" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q3_2">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q3_3">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">3.3</span> Выявлены и устранены (либо приняты меры) по опасным условиям с даты последнего аудита
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q3_3" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q3_3" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_3" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q3_3" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q3_3" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q3_3" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_3" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q3_3" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_3" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q3_3">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q3_4">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">3.4</span> Порядок в рабочей зоне поддерживается на системной основе (полы, рабочие поверхности, оборудование, места хранения предметов в надлежащем порядке)
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q3_4" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q3_4" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_4" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q3_4" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q3_4" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q3_4" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_4" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q3_4" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_4" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q3_4">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q3_5" id="question_q3_5">
+                <div class="na-container" id="na_container_q3_5">
+                    <input type="checkbox" id="na_q3_5" />
+                    <span>Не применимо (нет прилегающей территории)</span>
+                </div>
+                <div class="question-content" id="content_q3_5">
+                    <div class="question-text">
+                        <span class="question-number">3.5</span> Порядок на прилегающей территории поддерживается на системной основе
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q3_5" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q3_5" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_5" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q3_5" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q3_5" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q3_5" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_5" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q3_5" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q3_5" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q3_5">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-extras">
+                <div class="photo-upload">
+                    <label class="photo-upload-btn">
+                        <span>📸</span> Добавить фото замечаний
+                        <input type="file" id="photos_block3_input" accept="image/*" multiple />
+                    </label>
+                    <div class="photo-preview" id="photos_block3"></div>
+                </div>
+
+                <label for="comment_block3">💬 Комментарий</label>
+                <textarea id="comment_block3" placeholder="Опишите выявленные замечания..."></textarea>
+            </div>
+
+            <div class="block-score">
+                <span class="block-score-label">Средний балл:</span>
+                <span class="block-score-value" id="score_block3">3.00</span>
+            </div>
+        </div>
+
+        <!-- Блок 4: Стандартизация -->
+        <div class="card" data-block="4">
+            <div class="card-title">
+                <span class="icon">📏</span>
+                4. Стандартизация
+            </div>
+
+            <div class="question" data-question="q4_1">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">4.1</span> Разработаны и соблюдаются требования стандартов рабочих мест (СРМ)
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q4_1" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q4_1" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_1" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q4_1" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q4_1" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q4_1" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_1" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q4_1" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_1" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q4_1">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q4_2">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">4.2</span> Разработаны, соответствуют действительности схемы рабочих зон (СРЗ) с закреплением по должностям ответственных за рабочую зону
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q4_2" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q4_2" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_2" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q4_2" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q4_2" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q4_2" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_2" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q4_2" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_2" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q4_2">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q4_3">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">4.3</span> Применяются и соблюдаются правила визуального менеджмента
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q4_3" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q4_3" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_3" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q4_3" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q4_3" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q4_3" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_3" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q4_3" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q4_3" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q4_3">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-extras">
+                <div class="photo-upload">
+                    <label class="photo-upload-btn">
+                        <span>📸</span> Добавить фото замечаний
+                        <input type="file" id="photos_block4_input" accept="image/*" multiple />
+                    </label>
+                    <div class="photo-preview" id="photos_block4"></div>
+                </div>
+
+                <label for="comment_block4">💬 Комментарий</label>
+                <textarea id="comment_block4" placeholder="Опишите выявленные замечания..."></textarea>
+            </div>
+
+            <div class="block-score">
+                <span class="block-score-label">Средний балл:</span>
+                <span class="block-score-value" id="score_block4">3.00</span>
+            </div>
+        </div>
+
+        <!-- Блок 5: Совершенствование -->
+        <div class="card" data-block="5">
+            <div class="card-title">
+                <span class="icon">🚀</span>
+                5. Совершенствование
+            </div>
+
+            <div class="question" data-question="q5_1">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">5.1</span> Имеется и соблюдается график самоаудитов, листы аудитов обрабатываются
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q5_1" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q5_1" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_1" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q5_1" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q5_1" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q5_1" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_1" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q5_1" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_1" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q5_1">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q5_2">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">5.2</span> Рабочая среда соответствует принципам 5С
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q5_2" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q5_2" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_2" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q5_2" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q5_2" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q5_2" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_2" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q5_2" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_2" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q5_2">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" data-question="q5_3">
+                <div class="question-content">
+                    <div class="question-text">
+                        <span class="question-number">5.3</span> Работники знают о 5С
+                    </div>
+                    <div class="rating-container">
+                        <span class="rating-label">Оценка:</span>
+                        <div class="rating-buttons">
+                            <button type="button" class="rating-btn" data-q="q5_3" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-q="q5_3" data-value="1.5">1.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_3" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-q="q5_3" data-value="2.5">2.5</button>
+                            <button type="button" class="rating-btn active" data-q="q5_3" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-q="q5_3" data-value="3.5">3.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_3" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-q="q5_3" data-value="4.5">4.5</button>
+                            <button type="button" class="rating-btn" data-q="q5_3" data-value="5">5</button>
+                        </div>
+                        <div class="current-rating">Выбрано: <span id="current_q5_3">3</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-extras">
+                <div class="photo-upload">
+                    <label class="photo-upload-btn">
+                        <span>📸</span> Добавить фото замечаний
+                        <input type="file" id="photos_block5_input" accept="image/*" multiple />
+                    </label>
+                    <div class="photo-preview" id="photos_block5"></div>
+                </div>
+
+                <label for="comment_block5">💬 Комментарий</label>
+                <textarea id="comment_block5" placeholder="Опишите выявленные замечания..."></textarea>
+            </div>
+
+            <div class="block-score">
+                <span class="block-score-label">Средний балл:</span>
+                <span class="block-score-value" id="score_block5">3.00</span>
+            </div>
+        </div>
+
+        <!-- Итоговые результаты -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">📊</span>
+                Итоговые результаты
+            </div>
+
+            <table class="results-table">
+                <tbody>
+                    <tr>
+                        <td>📦 Сортировка</td>
+                        <td id="result_block1">3.00</td>
+                    </tr>
+                    <tr>
+                        <td>📐 Систематизация</td>
+                        <td id="result_block2">3.00</td>
+                    </tr>
+                    <tr>
+                        <td>🧹 Содержание в чистоте</td>
+                        <td id="result_block3">3.00</td>
+                    </tr>
+                    <tr>
+                        <td>📏 Стандартизация</td>
+                        <td id="result_block4">3.00</td>
+                    </tr>
+                    <tr>
+                        <td>🚀 Совершенствование</td>
+                        <td id="result_block5">3.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>📈 СРЕДНИЙ БАЛЛ</td>
+                        <td id="total_score">3.00</td>
+                    </tr>
+                    <tr class="index-row">
+                        <td>🎯 ИНДЕКС 5C</td>
+                        <td id="index_5s">0.60</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Возможности для улучшения -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">📝</span>
+                Возможности для улучшения
+            </div>
+
+            <label for="improvements">Описание</label>
+            <textarea id="improvements" name="improvements" placeholder="Опишите возможности для улучшения..."></textarea>
+
+            <label for="deadline">⏰ Сроки реализации</label>
+            <input type="text" id="deadline" name="deadline" placeholder="Например: до конца квартала" />
+        </div>
+
+        <!-- Лучшие практики -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">⭐</span>
+                Лучшие практики
+            </div>
+
+            <label for="best_practices">Описание</label>
+            <textarea id="best_practices" name="best_practices" placeholder="Опишите выявленные лучшие практики..."></textarea>
+
+            <div class="photo-upload">
+                <label class="photo-upload-btn">
+                    <span>📸</span> Добавить фото лучших практик
+                    <input type="file" id="photos_best_input" accept="image/*" multiple />
+                </label>
+                <div class="photo-preview" id="photos_best"></div>
+            </div>
+        </div>
+
+        <!-- Кнопки -->
+        <div class="card">
+            <div class="button-group">
+                <button type="button" class="btn-secondary" id="btnPreview">
+                    👁️ Предпросмотр
+                </button>
+                <button type="button" class="btn-primary" id="btnPDF">
+                    📄 Скачать PDF
+                </button>
+                <button type="button" class="btn-primary" id="btnShare">
+                    📤 Поделиться
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Модальное окно предпросмотра -->
+    <div class="modal" id="previewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Предпросмотр отчёта</h2>
+                <button type="button" class="modal-close" id="btnModalX">×</button>
+            </div>
+            <div class="modal-body" id="previewContent"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="btnModalClose">Закрыть</button>
+                <button type="button" class="btn-primary" id="btnModalPDF">📄 PDF</button>
+                <button type="button" class="btn-primary" id="btnModalShare">📤 Поделиться</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные
+        var ratings = {
+            q1_1: 3, q1_2: 3,
+            q2_1: 3, q2_2: 3,
+            q3_1: 3, q3_2: 3, q3_3: 3, q3_4: 3, q3_5: 3,
+            q4_1: 3, q4_2: 3, q4_3: 3,
+            q5_1: 3, q5_2: 3, q5_3: 3
+        };
+
+        var naStatus = { q3_5: false };
+
+        var photoStorage = {
+            photos_block1: [],
+            photos_block2: [],
+            photos_block3: [],
+            photos_block4: [],
+            photos_block5: [],
+            photos_best: []
+        };
+
+        var blocksConfig = {
+            1: { questions: ['q1_1', 'q1_2'], name: 'Сортировка', icon: '📦' },
+            2: { questions: ['q2_1', 'q2_2'], name: 'Систематизация', icon: '📐' },
+            3: { questions: ['q3_1', 'q3_2', 'q3_3', 'q3_4', 'q3_5'], name: 'Содержание в чистоте', icon: '🧹' },
+            4: { questions: ['q4_1', 'q4_2', 'q4_3'], name: 'Стандартизация', icon: '📏' },
+            5: { questions: ['q5_1', 'q5_2', 'q5_3'], name: 'Совершенствование', icon: '🚀' }
+        };
+
+        var questionTexts = {
+            q1_1: 'На стенде/в рабочей папке/демосистеме и в рабочей зоне присутствуют все необходимые и актуальные документы по 5С',
+            q1_2: 'В рабочей зоне нет ненужных предметов. Проходы не загромождены. Доступ к СИЗ и первичным средствам пожаротушения не затруднен.',
+            q2_1: 'Нужные предметы (оборудование, инструменты, материалы, документы и пр.) размещены рационально и безопасно',
+            q2_2: 'Места хранения предметов промаркированы и используются по назначению',
+            q3_1: 'Выявлены и устранены (либо приняты меры) по труднодоступным для уборки местам',
+            q3_2: 'Выявлены и устранены (либо приняты меры) по хроническим источникам загрязнений и неисправностям',
+            q3_3: 'Выявлены и устранены (либо приняты меры) по опасным условиям с даты последнего аудита',
+            q3_4: 'Порядок в рабочей зоне поддерживается на системной основе (полы, рабочие поверхности, оборудование, места хранения предметов в надлежащем порядке)',
+            q3_5: 'Порядок на прилегающей территории поддерживается на системной основе',
+            q4_1: 'Разработаны и соблюдаются требования стандартов рабочих мест (СРМ)',
+            q4_2: 'Разработаны, соответствуют действительности схемы рабочих зон (СРЗ) с закреплением по должностям ответственных за рабочую зону',
+            q4_3: 'Применяются и соблюдаются правила визуального менеджмента',
+            q5_1: 'Имеется и соблюдается график самоаудитов, листы аудитов обрабатываются',
+            q5_2: 'Рабочая среда соответствует принципам 5С',
+            q5_3: 'Работники знают о 5С'
+        };
+
+        // Вспомогательная функция для безопасного получения значения элемента
+        function getElValue(id) {
+            var el = document.getElementById(id);
+            return el ? el.value : '';
+        }
+
+        // Вспомогательная функция для безопасного получения текста элемента
+        function getElText(id) {
+            var el = document.getElementById(id);
+            return el ? el.textContent : '';
+        }
+
+                // Привязка обработчика с защитой от двойного срабатывания
+        function bindBtn(id, handler) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            var isHandling = false;
+
+            el.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                if (isHandling) return;
+                isHandling = true;
+                handler();
+                setTimeout(function() { isHandling = false; }, 400);
+            });
+
+            el.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (isHandling) return;
+                isHandling = true;
+                handler();
+                setTimeout(function() { isHandling = false; }, 400);
+            });
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Установка сегодняшней даты
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById('audit_date').value = today;
+
+            // Обработчики кнопок оценок
+            var ratingBtns = document.querySelectorAll('.rating-btn');
+            for (var i = 0; i < ratingBtns.length; i++) {
+                (function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var q = this.getAttribute('data-q');
+                        var value = parseFloat(this.getAttribute('data-value'));
+                        setRating(q, value, this);
+                    });
+                })(ratingBtns[i]);
+            }
+
+            // Обработчик "Не применимо"
+            var naContainer = document.getElementById('na_container_q3_5');
+            if (naContainer) {
+                naContainer.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        var checkbox = document.getElementById('na_q3_5');
+                        checkbox.checked = !checkbox.checked;
+                    }
+                    toggleNA('q3_5');
+                });
+            }
+
+            // Обработчики фото
+            for (var i = 1; i <= 5; i++) {
+                (function(num) {
+                    var input = document.getElementById('photos_block' + num + '_input');
+                    if (input) {
+                        input.addEventListener('change', function() {
+                            handlePhotoUpload(this.files, 'photos_block' + num);
+                            this.value = '';
+                        });
+                    }
+                })(i);
+            }
+
+            var bestInput = document.getElementById('photos_best_input');
+            if (bestInput) {
+                bestInput.addEventListener('change', function() {
+                    handlePhotoUpload(this.files, 'photos_best');
+                    this.value = '';
+                });
+            }
+
+            // Привязка кнопок действий через addEventListener (iOS fix)
+            bindBtn('btnPreview', showPreview);
+            bindBtn('btnPDF', generatePDF);
+            bindBtn('btnShare', sharePDF);
+            bindBtn('btnModalClose', closePreview);
+            bindBtn('btnModalPDF', generatePDF);
+            bindBtn('btnModalShare', sharePDF);
+            bindBtn('btnModalX', closePreview);
+
+            // Закрытие модалки по клику на фон
+            var modal = document.getElementById('previewModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closePreview();
+                    }
+                });
+            }
+
+            // Закрытие по Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closePreview();
+                }
+            });
+
+            // Начальный расчёт
+            calculateScores();
+        });
+
+        // Установка оценки
+        function setRating(questionId, value, button) {
+            ratings[questionId] = value;
+
+            // Обновление UI - убираем active со всех кнопок этого вопроса
+            var container = button.parentElement;
+            var btns = container.querySelectorAll('.rating-btn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('active');
+            }
+            button.classList.add('active');
+
+            // Обновление текста
+            var currentSpan = document.getElementById('current_' + questionId);
+            if (currentSpan) {
+                currentSpan.textContent = value;
+            }
+
+            calculateScores();
+        }
+
+        // Переключение "Не применимо"
+        function toggleNA(questionId) {
+            var checkbox = document.getElementById('na_' + questionId);
+            naStatus[questionId] = checkbox.checked;
+
+            var questionDiv = document.getElementById('question_' + questionId);
+            var contentDiv = document.getElementById('content_' + questionId);
+
+            if (checkbox.checked) {
+                questionDiv.classList.add('disabled');
+                if (contentDiv) {
+                    contentDiv.style.opacity = '0.4';
+                    contentDiv.style.pointerEvents = 'none';
+                }
+            } else {
+                questionDiv.classList.remove('disabled');
+                if (contentDiv) {
+                    contentDiv.style.opacity = '1';
+                    contentDiv.style.pointerEvents = 'auto';
+                }
+            }
+
+            calculateScores();
+        }
+
+        // Расчёт баллов
+        function calculateScores() {
+            var totalSum = 0;
+            var totalCount = 0;
+            var blockNums = [1, 2, 3, 4, 5];
+
+            for (var b = 0; b < blockNums.length; b++) {
+                var blockNum = blockNums[b];
+                var block = blocksConfig[blockNum];
+                var blockSum = 0;
+                var blockCount = 0;
+
+                for (var q = 0; q < block.questions.length; q++) {
+                    var qId = block.questions[q];
+                    if (naStatus[qId]) continue;
+                    blockSum += ratings[qId];
+                    blockCount++;
+                }
+
+                var blockAvg = blockCount > 0 ? (blockSum / blockCount) : 0;
+
+                var scoreEl = document.getElementById('score_block' + blockNum);
+                var resultEl = document.getElementById('result_block' + blockNum);
+
+                if (scoreEl) scoreEl.textContent = blockAvg.toFixed(2);
+                if (resultEl) resultEl.textContent = blockAvg.toFixed(2);
+
+                if (blockCount > 0) {
+                    totalSum += blockAvg;
+                    totalCount++;
+                }
+            }
+
+            var totalAvg = totalCount > 0 ? (totalSum / totalCount) : 0;
+            var index5S = totalAvg * 0.2;
+
+            var totalEl = document.getElementById('total_score');
+            var indexEl = document.getElementById('index_5s');
+
+            if (totalEl) totalEl.textContent = totalAvg.toFixed(2);
+            if (indexEl) indexEl.textContent = index5S.toFixed(2);
+        }
+
+        // Загрузка фото
+        function handlePhotoUpload(files, containerId) {
+            var container = document.getElementById(containerId);
+            if (!container) return;
+
+            for (var f = 0; f < files.length; f++) {
+                (function(file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var photoData = {
+                            dataUrl: e.target.result,
+                            name: file.name,
+                            id: Date.now() + Math.random()
+                        };
+                        photoStorage[containerId].push(photoData);
+
+                        var photoItem = document.createElement('div');
+                        photoItem.className = 'photo-item';
+                        photoItem.setAttribute('data-photo-id', photoData.id);
+
+                        var img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = 'Фото';
+                        photoItem.appendChild(img);
+
+                        var removeBtn = document.createElement('button');
+                        removeBtn.type = 'button';
+                        removeBtn.className = 'remove-photo';
+                        removeBtn.textContent = '×';
+                        removeBtn.setAttribute('data-container', containerId);
+                        removeBtn.setAttribute('data-id', photoData.id);
+                        removeBtn.addEventListener('click', function(ev) {
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            removePhoto(this.getAttribute('data-container'), parseFloat(this.getAttribute('data-id')));
+                        });
+                        removeBtn.addEventListener('touchend', function(ev) {
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            removePhoto(this.getAttribute('data-container'), parseFloat(this.getAttribute('data-id')));
+                        });
+                        photoItem.appendChild(removeBtn);
+
+                        container.appendChild(photoItem);
+                    };
+                    reader.readAsDataURL(file);
+                })(files[f]);
+            }
+        }
+
+        // Удаление фото
+        function removePhoto(containerId, photoId) {
+            var storage = photoStorage[containerId];
+            for (var i = 0; i < storage.length; i++) {
+                if (storage[i].id === photoId) {
+                    storage.splice(i, 1);
+                    break;
+                }
+            }
+
+            var container = document.getElementById(containerId);
+            if (container) {
+                var photoItem = container.querySelector('[data-photo-id="' + photoId + '"]');
+                if (photoItem) {
+                    photoItem.parentNode.removeChild(photoItem);
+                }
+            }
+        }
+
+        // Валидация
+        function validateForm() {
+            var fields = ['audit_date', 'area', 'auditor', 'leader'];
+            for (var i = 0; i < fields.length; i++) {
+                var field = document.getElementById(fields[i]);
+                if (!field || !field.value.trim()) {
+                    alert('Пожалуйста, заполните все обязательные поля в разделе "Общая информация"');
+                    if (field) field.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Сбор данных
+        function collectFormData() {
+            var data = {
+                date: getElValue('audit_date'),
+                area: getElValue('area'),
+                auditor: getElValue('auditor'),
+                leader: getElValue('leader'),
+                blocks: {},
+                improvements: getElValue('improvements'),
+                deadline: getElValue('deadline'),
+                bestPractices: getElValue('best_practices'),
+                totalScore: getElText('total_score'),
+                index5S: getElText('index_5s')
+            };
+
+            var blockNums = [1, 2, 3, 4, 5];
+            for (var b = 0; b < blockNums.length; b++) {
+                var blockNum = blockNums[b];
+                var block = blocksConfig[blockNum];
+                var commentEl = document.getElementById('comment_block' + blockNum);
+
+                data.blocks[blockNum] = {
+                    name: block.name,
+                    icon: block.icon,
+                    questions: {},
+                    comment: commentEl ? commentEl.value : '',
+                    score: getElText('score_block' + blockNum),
+                    photos: photoStorage['photos_block' + blockNum]
+                };
+
+                for (var q = 0; q < block.questions.length; q++) {
+                    var qId = block.questions[q];
+                    data.blocks[blockNum].questions[qId] = {
+                        num: blockNum + '.' + (q + 1),
+                        text: questionTexts[qId],
+                        value: ratings[qId],
+                        na: naStatus[qId] || false
+                    };
+                }
+            }
+
+            data.bestPhotos = photoStorage['photos_best'];
+
+            return data;
+        }
+
+        // Предпросмотр
+        function showPreview() {
+            if (!validateForm()) return;
+
+            var data = collectFormData();
+            var html = '';
+
+            // Общая информация
+            html += '<div class="preview-section">';
+            html += '<h3>📌 Общая информация</h3>';
+            html += '<div class="preview-row"><span class="preview-label">Дата аудита:</span><span class="preview-value">' + data.date + '</span></div>';
+            html += '<div class="preview-row"><span class="preview-label">Участок:</span><span class="preview-value">' + data.area + '</span></div>';
+            html += '<div class="preview-row"><span class="preview-label">Координатор:</span><span class="preview-value">' + data.auditor + '</span></div>';
+            html += '<div class="preview-row"><span class="preview-label">Лидер:</span><span class="preview-value">' + data.leader + '</span></div>';
+            html += '</div>';
+
+            // Блоки
+            var blockNums = [1, 2, 3, 4, 5];
+            for (var b = 0; b < blockNums.length; b++) {
+                var blockId = blockNums[b];
+                var block = data.blocks[blockId];
+                html += '<div class="preview-section">';
+                html += '<h3>' + block.icon + ' ' + block.name + '</h3>';
+
+                var qIds = blocksConfig[blockId].questions;
+                for (var q = 0; q < qIds.length; q++) {
+                    var qId = qIds[q];
+                    var qData = block.questions[qId];
+                    var shortText = qData.text.length > 60 ? qData.text.substring(0, 60) + '...' : qData.text;
+                    html += '<div class="preview-row">';
+                    html += '<span class="preview-label">' + qData.num + ' ' + shortText + '</span>';
+                    html += '<span class="preview-value">' + (qData.na ? 'Н/П' : qData.value) + '</span>';
+                    html += '</div>';
+                }
+
+                html += '<div class="preview-row" style="background: #e8f5e9; margin: 8px -8px; padding: 8px; border-radius: 4px;">';
+                html += '<span class="preview-label"><strong>Средний балл:</strong></span>';
+                html += '<span class="preview-value"><strong>' + block.score + '</strong></span>';
+                html += '</div>';
+
+                if (block.comment) {
+                    html += '<div class="preview-row">';
+                    html += '<span class="preview-label">Комментарий:</span>';
+                    html += '<span class="preview-value">' + block.comment + '</span>';
+                    html += '</div>';
+                }
+
+                if (block.photos && block.photos.length > 0) {
+                    html += '<div class="preview-photos">';
+                    for (var p = 0; p < block.photos.length; p++) {
+                        html += '<img src="' + block.photos[p].dataUrl + '" alt="Фото" />';
+                    }
+                    html += '</div>';
+                }
+
+                html += '</div>';
+            }
+
+            // Итоги
+            html += '<div class="preview-section">';
+            html += '<h3>📊 Итоговые результаты</h3>';
+            for (var b = 0; b < blockNums.length; b++) {
+                var blockId = blockNums[b];
+                var block = data.blocks[blockId];
+                html += '<div class="preview-row">';
+                html += '<span class="preview-label">' + block.icon + ' ' + block.name + '</span>';
+                html += '<span class="preview-value">' + block.score + '</span>';
+                html += '</div>';
+            }
+            html += '<div class="preview-row" style="background: #e8f5e9; padding: 12px; border-radius: 8px; margin-top: 8px;">';
+            html += '<span class="preview-label"><strong>📈 СРЕДНИЙ БАЛЛ</strong></span>';
+            html += '<span class="preview-value" style="font-size: 20px;"><strong>' + data.totalScore + '</strong></span>';
+            html += '</div>';
+            html += '<div class="preview-row" style="background: #c8e6c9; padding: 12px; border-radius: 8px; margin-top: 4px;">';
+            html += '<span class="preview-label"><strong>🎯 ИНДЕКС 5С</strong></span>';
+            html += '<span class="preview-value" style="font-size: 20px;"><strong>' + data.index5S + '</strong></span>';
+            html += '</div>';
+            html += '</div>';
+
+            // Улучшения
+            if (data.improvements || data.deadline) {
+                html += '<div class="preview-section">';
+                html += '<h3>📝 Возможности для улучшения</h3>';
+                if (data.improvements) {
+                    html += '<div class="preview-row"><span class="preview-value" style="text-align: left;">' + data.improvements + '</span></div>';
+                }
+                if (data.deadline) {
+                    html += '<div class="preview-row"><span class="preview-label">Сроки:</span><span class="preview-value">' + data.deadline + '</span></div>';
+                }
+                html += '</div>';
+            }
+
+            // Лучшие практики
+            if (data.bestPractices || (data.bestPhotos && data.bestPhotos.length > 0)) {
+                html += '<div class="preview-section">';
+                html += '<h3>⭐ Лучшие практики</h3>';
+                if (data.bestPractices) {
+                    html += '<div class="preview-row"><span class="preview-value" style="text-align: left;">' + data.bestPractices + '</span></div>';
+                }
+                if (data.bestPhotos && data.bestPhotos.length > 0) {
+                    html += '<div class="preview-photos">';
+                    for (var p = 0; p < data.bestPhotos.length; p++) {
+                        html += '<img src="' + data.bestPhotos[p].dataUrl + '" alt="Фото" />';
+                    }
+                    html += '</div>';
+                }
+                html += '</div>';
+            }
+
+            document.getElementById('previewContent').innerHTML = html;
+            document.getElementById('previewModal').classList.add('active');
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').classList.remove('active');
+        }
+
+        // Создание PDF
+        function buildPdfDocument(data) {
+            var docDefinition = {
+                pageSize: 'A4',
+                pageMargins: [40, 40, 40, 40],
+                content: [],
+                styles: {
+                    header: { fontSize: 18, bold: true, color: '#228B22', alignment: 'center', margin: [0, 0, 0, 10] },
+                    subheader: { fontSize: 14, bold: true, color: '#228B22', margin: [0, 15, 0, 8] },
+                    tableHeader: { bold: true, fillColor: '#e8f5e9' },
+                    totalRow: { bold: true, fillColor: '#c8e6c9', fontSize: 12 },
+                    indexRow: { bold: true, fillColor: '#a5d6a7', fontSize: 12 }
+                },
+                defaultStyle: { fontSize: 10 }
+            };
+
+            // Заголовок
+            docDefinition.content.push({ text: 'АУДИТ 5С', style: 'header' });
+            docDefinition.content.push({ text: 'Дата: ' + data.date + ' | Участок: ' + data.area, alignment: 'center', margin: [0, 0, 0, 5] });
+            docDefinition.content.push({ text: 'Координатор: ' + data.auditor + ' | Лидер: ' + data.leader, alignment: 'center', margin: [0, 0, 0, 15] });
+
+            // Блоки
+            var blockNums = [1, 2, 3, 4, 5];
+            for (var b = 0; b < blockNums.length; b++) {
+                var blockId = blockNums[b];
+                var block = data.blocks[blockId];
+
+                docDefinition.content.push({ text: block.icon + ' ' + block.name, style: 'subheader' });
+
+                var tableBody = [[
+                    { text: 'Вопрос', style: 'tableHeader' },
+                    { text: 'Оценка', style: 'tableHeader', alignment: 'center' }
+                ]];
+
+                var qIds = blocksConfig[blockId].questions;
+                for (var q = 0; q < qIds.length; q++) {
+                    var qId = qIds[q];
+                    var qData = block.questions[qId];
+                    tableBody.push([
+                        qData.num + ' ' + qData.text,
+                        { text: qData.na ? 'Н/П' : String(qData.value), alignment: 'center' }
+                    ]);
+                }
+
+                tableBody.push([
+                    { text: 'Средний балл', bold: true },
+                    { text: block.score, bold: true, alignment: 'center' }
+                ]);
+
+                docDefinition.content.push({
+                    table: {
+                        headerRows: 1,
+                        widths: ['*', 60],
+                        body: tableBody
+                    },
+                    layout: {
+                        hLineColor: function() { return '#c8e6c9'; },
+                        vLineColor: function() { return '#c8e6c9'; }
+                    }
+                });
+
+                if (block.comment) {
+                    docDefinition.content.push({ text: 'Комментарий: ' + block.comment, margin: [0, 5, 0, 0], italics: true, color: '#666' });
+                }
+            }
+
+            // Итоговая таблица
+            docDefinition.content.push({ text: '📊 Итоговые результаты', style: 'subheader' });
+
+            var summaryBody = [[
+                { text: 'Категория', style: 'tableHeader' },
+                { text: 'Балл', style: 'tableHeader', alignment: 'center' }
+            ]];
+
+            for (var b = 0; b < blockNums.length; b++) {
+                var blockId = blockNums[b];
+                var block = data.blocks[blockId];
+                summaryBody.push([
+                    block.icon + ' ' + block.name,
+                    { text: block.score, alignment: 'center' }
+                ]);
+            }
+
+            summaryBody.push([
+                { text: '📈 СРЕДНИЙ БАЛЛ', style: 'totalRow' },
+                { text: data.totalScore, style: 'totalRow', alignment: 'center' }
+            ]);
+
+            summaryBody.push([
+                { text: '🎯 ИНДЕКС 5С', style: 'indexRow' },
+                { text: data.index5S, style: 'indexRow', alignment: 'center' }
+            ]);
+
+            docDefinition.content.push({
+                table: {
+                    headerRows: 1,
+                    widths: ['*', 80],
+                    body: summaryBody
+                },
+                layout: {
+                    hLineColor: function() { return '#c8e6c9'; },
+                    vLineColor: function() { return '#c8e6c9'; }
+                }
+            });
+
+            // Возможности для улучшения
+            if (data.improvements || data.deadline) {
+                docDefinition.content.push({ text: '📝 Возможности для улучшения', style: 'subheader' });
+                if (data.improvements) {
+                    docDefinition.content.push({ text: data.improvements, margin: [0, 0, 0, 5] });
+                }
+                if (data.deadline) {
+                    docDefinition.content.push({ text: 'Сроки реализации: ' + data.deadline, italics: true, color: '#666' });
+                }
+            }
+
+            // Лучшие практики
+            if (data.bestPractices) {
+                docDefinition.content.push({ text: '⭐ Лучшие практики', style: 'subheader' });
+                docDefinition.content.push({ text: data.bestPractices });
+            }
+
+            // Фотографии
+            var hasPhotos = false;
+
+            for (var b = 0; b < blockNums.length; b++) {
+                var blockId = blockNums[b];
+                var photos = data.blocks[blockId].photos;
+                if (photos && photos.length > 0) {
+                    if (!hasPhotos) {
+                        docDefinition.content.push({
+                            text: '📸 Фотографии замечаний',
+                            style: 'subheader',
+                            pageBreak: 'before'
+                        });
+                        hasPhotos = true;
+                    }
+
+                    docDefinition.content.push({
+                        text: data.blocks[blockId].icon + ' ' + data.blocks[blockId].name + ':',
+                        bold: true,
+                        margin: [0, 10, 0, 5]
+                    });
+
+                    for (var p = 0; p < photos.length; p++) {
+                        try {
+                            docDefinition.content.push({
+                                image: photos[p].dataUrl,
+                                width: 400,
+                                margin: [0, 5, 0, 10]
+                            });
+                        } catch (e) {
+                            console.warn('Ошибка добавления фото:', e);
+                        }
+                    }
+                }
+            }
+
+            // Фото лучших практик
+            if (data.bestPhotos && data.bestPhotos.length > 0) {
+                docDefinition.content.push({
+                    text: '⭐ Фото лучших практик',
+                    style: 'subheader',
+                    pageBreak: hasPhotos ? undefined : 'before'
+                });
+
+                for (var p = 0; p < data.bestPhotos.length; p++) {
+                    try {
+                        docDefinition.content.push({
+                            image: data.bestPhotos[p].dataUrl,
+                            width: 400,
+                            margin: [0, 5, 0, 10]
+                        });
+                    } catch (e) {
+                        console.warn('Ошибка добавления фото:', e);
+                    }
+                }
+            }
+
+            return docDefinition;
+        }
+
+        // Генерация PDF
+        function generatePDF() {
+            if (!validateForm()) return;
+
+            var data = collectFormData();
+            var docDefinition = buildPdfDocument(data);
+
+            var isIOS = /iP(hone|od|ad)/i.test(navigator.userAgent);
+            var pdf = pdfMake.createPdf(docDefinition);
+
+            if (isIOS) {
+                pdf.open();
+            } else {
+                var fileName = 'audit_5s_' + data.area.replace(/[^a-zA-Zа-яА-Я0-9]/g, '_') + '_' + data.date + '.pdf';
+                pdf.download(fileName);
+            }
+        }
+
+        // Поделиться PDF
+        function sharePDF() {
+            if (!validateForm()) return;
+
+            var data = collectFormData();
+            var docDefinition = buildPdfDocument(data);
+
+            if (!navigator.share || !navigator.canShare) {
+                pdfMake.createPdf(docDefinition).open();
+                return;
+            }
+
+            try {
+                var pdf = pdfMake.createPdf(docDefinition);
+
+                pdf.getBlob(function(blob) {
+                    var fileName = 'audit_5s_' + data.area.replace(/[^a-zA-Zа-яА-Я0-9]/g, '_') + '_' + data.date + '.pdf';
+                    var file = new File([blob], fileName, { type: 'application/pdf' });
+
+                    if (navigator.canShare({ files: [file] })) {
+                        navigator.share({
+                            title: 'Аудит 5S — ' + data.area,
+                            text: 'Результаты аудита 5S от ' + data.date + '. Средний балл: ' + data.totalScore + ', Индекс 5S: ' + data.index5S,
+                            files: [file]
+                        }).catch(function(e) {
+                            console.error('Ошибка шаринга:', e);
+                        });
+                    } else {
+                        pdfMake.createPdf(docDefinition).open();
+                    }
+                });
+            } catch (e) {
+                console.error('Ошибка:', e);
+                alert('Не удалось поделиться. Попробуйте скачать PDF.');
+            }
+        }
+    </script>
+</body>
+</html>
